@@ -1,0 +1,62 @@
+import random
+
+# Define the board
+board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+
+# Define the print_board function
+def print_board():
+    print(board[0] + "|" + board[1] + "|" + board[2])
+    print("-+-+-")
+    print(board[3] + "|" + board[4] + "|" + board[5])
+    print("-+-+-")
+    print(board[6] + "|" + board[7] + "|" + board[8])
+
+# Define the check_winner function
+def check_winner():
+    if board[0] == board[1] == board[2] != " ":
+        return board[0]
+    elif board[3] == board[4] == board[5] != " ":
+        return board[3]
+    elif board[6] == board[7] == board[8] != " ":
+        return board[6]
+    elif board[0] == board[3] == board[6] != " ":
+        return board[0]
+    elif board[1] == board[4] == board[7] != " ":
+        return board[1]
+    elif board[2] == board[5] == board[8] != " ":
+        return board[2]
+    elif board[0] == board[4] == board[8] != " ":
+        return board[0]
+    elif board[2] == board[4] == board[6] != " ":
+        return board[2]
+    else:
+        return None
+
+# Define the game loop
+def game_loop():
+    turn = "X"
+    while True:
+        print_board()
+        print("It's " + turn + "'s turn.")
+        move = input("Where would you like to go? (1-9) ")
+        if board[int(move) - 1] == " ":
+            board[int(move) - 1] = turn
+            winner = check_winner()
+            if winner:
+                print_board()
+                print(winner + " wins!")
+                break
+            elif " " not in board:
+                print_board()
+                print("It's a tie!")
+                break
+            else:
+                if turn == "X":
+                    turn = "O"
+                else:
+                    turn = "X"
+        else:
+            print("That space is already taken!")
+
+# Start the game
+game_loop()
